@@ -11,7 +11,7 @@ TOKENS = [
 URI = 'https://gateway.thegraph.com/api/[INSERT API KEY HERE]/subgraphs/id/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV'
 
 
-def query_subgraph(Token):
+def query_subgraph_day_data(Token):
     '''
     This function queries a Uniswap Subgraph.  The original Curl construct and expected response struct
     can be found in the read-me file
@@ -40,7 +40,7 @@ def query_subgraph(Token):
 
 def main():
     for Token in TOKENS:
-        result = query_subgraph(Token)
+        result = query_subgraph_day_data(Token)
         if result:
             print(json.dumps(result, indent=4))
 
