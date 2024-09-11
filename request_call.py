@@ -16,9 +16,11 @@ def query_subgraph(Token):
     This function queries a Uniswap Subgraph.  The original Curl construct and expected response struct
     can be found in the read-me file
     '''
-    
+
     json_data = { 
-                 "query": "{ token(id: \"" + Token + "\") { id name symbol } }", 
+                 "query": "{ token(id: \"" + Token + "\") { id name symbol totalSupply,volumeUSD, \
+                                                            decimals tokenDayData{ id, open, close, \
+                                                            high, low, priceUSD } } }", 
                  "operationName": "Subgraphs", 
                  "variables": {} 
                 }
