@@ -41,7 +41,8 @@ def query_subgraph_day_data(Token):
 def query_subgraph_timeseries(Token):
 
     json_data = { 
-                 "query": "{ tokenDayDatas(first: 7, where: {token: \"" + Token + "\"}, orderBy: date, orderDirection: asc )  { date token { id symbol { volumeUSD } } } }",                                           
+                 "query": "{ tokenDayDatas(first: 7, where: {token: \"" + Token + "\"}, orderBy: date, orderDirection: asc )\
+                                                                                      { date token { id symbol { volumeUSD } } } }",                                           
                  "operationName": "Subgraphs", 
                  "variables": {} 
                 }
