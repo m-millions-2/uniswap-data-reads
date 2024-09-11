@@ -2,6 +2,8 @@ import json
 import requests
 
 
+TOKEN_ID = '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599'
+
 def query_subgraph():
     '''
     This is the first iteration of a simple function, which queries a Uniswap Subgraph.  
@@ -44,7 +46,7 @@ def query_subgraph():
 uri = 'https://gateway.thegraph.com/api/[Insert API KEY Here]/subgraphs/id/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV'
 
 json_data = { 
-       "query": "{ token(id: \"0x2260fac5e5542a773aa44fbcfedf7c193bc2c599\") { id name symbol } }", 
+       "query": "{ token(id: \"" + TOKEN_ID + "\") { id name symbol } }", 
        "operationName": "Subgraphs", 
        "variables": {} 
        }
