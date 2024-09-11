@@ -2,6 +2,8 @@ import json
 import requests
 
 
+DAYS = '7'
+
 TOKENS = [
           '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599',
           '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
@@ -29,7 +31,7 @@ def query_subgraph_day_data(Token):
     
     # Check if the request was successful
     # ToDo: There is a small bug in this error checkin logic,
-    #       which will be addressed in a later committ
+    #       which will be addressed in a later commit
     if response.status_code == 200:
         print(response)
         return response.json()
@@ -38,11 +40,10 @@ def query_subgraph_day_data(Token):
         return None
 
 
-def query_subgraph_timeseries(Token):
+def query_subgraph_timeseries(Token, Days):
 
     json_data = { 
-                 "query": "{ tokenDayDatas(first: 7, where: {token: \"" + Token + "\"}, orderBy: date, orderDirection: asc )\
-                                                                                      { date token { id symbol { volumeUSD } } } }",                                           
+                 "query": "{ tokenDayDatas(first: " + Days + ", where: {token: \"" + Token + "\"}, orderBy: date, orderDirection: asc )  { date token { id symbol { volumeUSD } } } }",                                           
                  "operationName": "Subgraphs", 
                  "variables": {} 
                 }
@@ -67,7 +68,7 @@ def main():
         if result:
             print(json.dumps(result, indent=4))
 
-        result = query_subgraph_timeseries(Token)
+        result = query_subgraph_timeseries(Token, DAYS)
         if result:
             print(json.dumps(result, indent=4))
 
