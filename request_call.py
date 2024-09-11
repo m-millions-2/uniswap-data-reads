@@ -12,7 +12,11 @@ URI = 'https://gateway.thegraph.com/api/[INSERT API KEY HERE]/subgraphs/id/5zvR8
 
 
 def query_subgraph(Token):
-
+    '''
+    This function queries a Uniswap Subgraph.  The original Curl construct and expected response struct
+    can be found in the read-me file
+    '''
+    
     json_data = { 
                  "query": "{ token(id: \"" + Token + "\") { id name symbol } }", 
                  "operationName": "Subgraphs", 
@@ -33,29 +37,6 @@ def query_subgraph(Token):
 
 
 def main():
-    '''
-    This function queries a Uniswap Subgraph.  The original Curl construct is:
-
-    Curl -X POST \
-      -H "Content-Type: application/json" \
-      -d '{ 
-           "query": "{ token(id: \"0x2260fac5e5542a773aa44fbcfedf7c193bc2c599\") { id name symbol } }", 
-           "operationName": "Subgraphs", 
-           "variables": {} 
-          }'
-        https://gateway.thegraph.com/api/[INSERT API KEY HERE]/subgraphs/id/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV
-
-    Expected JSON response:
-        {
-         'data': {
-                  'token': {
-                            'id': '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599',
-                            'name': 'Wrapped BTC', 
-                            'symbol': 'WBTC'
-                            }
-                  }
-        }
-    '''
     for Token in TOKENS:
         result = query_subgraph(Token)
         if result:
