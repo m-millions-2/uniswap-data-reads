@@ -38,9 +38,35 @@ def query_subgraph_day_data(Token):
         return None
 
 
+def query_subgraph_timeseries(Token):
+
+    json_data = { 
+                 "query": "{ tokenDayDatas(first: 7, where: {token: \"" + Token + "\"}, orderBy: date, orderDirection: asc )  { date token { id symbol { volumeUSD } } } }",                                           
+                 "operationName": "Subgraphs", 
+                 "variables": {} 
+                }
+
+    response = requests.post(URI, json=json_data)  
+    
+    # Check if the request was successful
+    # ToDo: There is a small bug in this error checkin logic,
+    #       which will be addressed in a later committ
+    if response.status_code == 200:
+        print(response)
+        return response.json()
+    else:
+        print("Error:", response.text)
+        return None
+
+
 def main():
+    #ToDo: Update calls for asychronous processing and DAYS variable pass-through
     for Token in TOKENS:
         result = query_subgraph_day_data(Token)
+        if result:
+            print(json.dumps(result, indent=4))
+
+        result = query_subgraph_timeseries(Token)
         if result:
             print(json.dumps(result, indent=4))
 
