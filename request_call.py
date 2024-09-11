@@ -3,7 +3,7 @@ import requests
 
 
 def query_subgraph():
-'''
+    '''
     This is the first iteration of a simple function, which queries a Uniswap Subgraph.  
 
     The original Curl construct is:
@@ -27,7 +27,7 @@ def query_subgraph():
                             }
                   }
         }
-'''
+    '''
 
     response = requests.post(uri, json=json_data)  
     
