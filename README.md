@@ -140,7 +140,7 @@ TESTED ON:
 ``` 
  curl -X POST \
   -H "Content-Type: application/json" \
-  -d '{"query": "{ tokenDayDatas(first: 7, where: {token: \"0x2260fac5e5542a773aa44fbcfedf7c193bc2c599\"}, orderBy: date, orderDirection: asc ) { date token { id symbol { volumeUSD } } } }", "operationName": "Subgraphs", "variables": {}}' \
+  -d '{"query": "{ tokenDayDatas(first: 7, where: {token: \"0x2260fac5e5542a773aa44fbcfedf7c193bc2c599\"}, orderBy: date, orderDirection: asc ) { date volumeUSD token { id symbol } } }", "operationName": "Subgraphs", "variables": {}}' \
   https://gateway.thegraph.com/api/[INSERT API KEY HERE]/subgraphs/id/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV
 ```
 
