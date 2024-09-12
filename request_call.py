@@ -15,6 +15,9 @@ URI = 'https://gateway.thegraph.com/api/[INSERT API KEY HERE]/subgraphs/id/5zvR8
 
 
 def get_config_values():
+    '''
+    This function reads in global variables from a configuration file
+    '''
     config = configparser.ConfigParser()
     config.sections()
 
@@ -31,7 +34,6 @@ def query_subgraph_day_data(Token):
     This function queries a Uniswap Subgraph.  The original Curl construct and expected response struct
     can be found in the read-me file
     '''
-
     json_data = { 
                  "query": "{ token(id: \"" + Token + "\") { id name symbol totalSupply,volumeUSD, \
                                                             decimals tokenDayData{ id, open, close, \
@@ -43,7 +45,7 @@ def query_subgraph_day_data(Token):
     response = requests.post(URI, json=json_data)  
     
     # Check if the request was successful
-    # ToDo: There is a small bug in this error checkin logic,
+    # ToDo: There is a small bug in this error checking logic,
     #       which will be addressed in a later commit
     if response.status_code == 200:
         print(response)
@@ -54,7 +56,10 @@ def query_subgraph_day_data(Token):
 
 
 def query_subgraph_timeseries(Token, Days):
-
+    '''
+    This function queries a Uniswap Subgraph.  The original Curl construct and expected response struct
+    can be found in the read-me file
+    '''
     json_data = { 
                  "query": "{ tokenDayDatas(first: " + Days + ", where: {token: \"" + Token + "\"}, orderBy: date,\
                                                                                                    orderDirection: asc )\
@@ -78,6 +83,10 @@ def query_subgraph_timeseries(Token, Days):
 
 
 def main():
+    '''
+    This is the point of ingress for the application and launches two distinct 
+    Subgraph search queries, each returning a JSON payload
+    '''
     #ToDo: Update calls for asychronous processing and DAYS variable pass-through
     for Token in TOKENS:
         result = query_subgraph_day_data(Token)
@@ -90,5 +99,4 @@ def main():
 
 
 if __name__ == "__main__":
-  main()
-
+    main()
