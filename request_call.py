@@ -3,14 +3,6 @@ import json
 import requests
 
 
-DAYS = '7'
-
-TOKENS = [
-          '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599',
-          '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
-          '0x6810e776880c02933d47db1b9fc05908e5386b96' 
-         ]
-
 URI = 'https://gateway.thegraph.com/api/[INSERT API KEY HERE]/subgraphs/id/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV'
 
 
@@ -21,10 +13,10 @@ def get_config_values():
     config = configparser.ConfigParser()
     config.sections()
 
-    config.read('sample_config.ini')
+    config.read('config.ini')
  
     DAYS = config['Time Series Length']['DAYS']
-    TOKENS = config['Token Dict']['TOKENS']
+    TOKENS = config['Tokens']['TOKENS']
     
     return DAYS, TOKENS
 
@@ -86,8 +78,13 @@ def main():
     '''
     This is the point of ingress for the application and launches two distinct 
     Subgraph search queries, each returning a JSON payload
+  
+    ToDo: Update calls for asychronous processing and DAYS variable pass-through
     '''
-    #ToDo: Update calls for asychronous processing and DAYS variable pass-through
+
+    DAYS, TOKENS = get_config_values()
+    TOKENS = TOKENS.split()
+
     for Token in TOKENS:
         result = query_subgraph_day_data(Token)
         if result:
