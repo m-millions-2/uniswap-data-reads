@@ -1,3 +1,4 @@
+import configparser
 import json
 import requests
 
@@ -11,6 +12,18 @@ TOKENS = [
          ]
 
 URI = 'https://gateway.thegraph.com/api/[INSERT API KEY HERE]/subgraphs/id/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV'
+
+
+def get_config_values():
+    config = configparser.ConfigParser()
+    config.sections()
+
+    config.read('sample_config.ini')
+ 
+    DAYS = config['Time Series Length']['DAYS']
+    TOKENS = config['Token Dict']['TOKENS']
+    
+    return DAYS, TOKENS
 
 
 def query_subgraph_day_data(Token):
