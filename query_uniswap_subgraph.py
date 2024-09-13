@@ -7,22 +7,6 @@ URI1 = 'https://gateway.thegraph.com/api/'
 URI2 = '/subgraphs/id/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV'
 
 
-def get_config_values():
-    '''
-    This function reads in global variables from a configuration file
-    '''
-    config = configparser.ConfigParser()
-    config.sections()
-
-    config.read('config_test.ini')
-
-    API_KEY = config['Secret']['API_KEY'] 
-    DAYS = config['Time Series Length']['DAYS']
-    TOKENS = config['Tokens']['TOKENS']
-
-    return API_KEY, DAYS, TOKENS
-
-
 def query_subgraph_day_data(Token, URL):
     '''
     This function queries a Uniswap Subgraph.  The original Curl construct and expected response struct
@@ -80,11 +64,10 @@ def run_day_data_query():
     '''
     This function
     '''
-    API_KEY, DAYS, TOKENS = get_config_values()
+    config_values = config_test.GCV()
+    API_KEY, DAYS, TOKENS = config_values.read_config_file()
     TOKENS = TOKENS.split()
-    print(API_KEY, DAYS, TOKENS)
     URL = URI1 + API_KEY + URI2
-    print(URL)
 
     for Token in TOKENS: 
         result = query_subgraph_day_data(Token, URL)
@@ -96,11 +79,10 @@ def run_timeseries_query():
     '''
     This function
     '''
-    API_KEY, DAYS, TOKENS = get_config_values()
+    config_values = config_test.GCV()
+    API_KEY, DAYS, TOKENS = config_values.read_config_file()
     TOKENS = TOKENS.split()
-    print(API_KEY, DAYS, TOKENS)
     URL = URI1 + API_KEY + URI2
-    print(URL)
 
     for Token in TOKENS:
         print(Token)
