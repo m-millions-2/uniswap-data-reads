@@ -3,7 +3,8 @@ import json
 import requests
 
 
-URI = 'https://gateway.thegraph.com/api/[INSERT API KEY HERE]/subgraphs/id/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV'
+URI1 = 'https://gateway.thegraph.com/api/'
+URI2 = '/subgraphs/id/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV'
 
 
 def get_config_values():
@@ -13,15 +14,16 @@ def get_config_values():
     config = configparser.ConfigParser()
     config.sections()
 
-    config.read('config.ini')
- 
+    config.read('config_test.ini')
+
+    API_KEY = config['Secret']['API_KEY'] 
     DAYS = config['Time Series Length']['DAYS']
     TOKENS = config['Tokens']['TOKENS']
-    
-    return DAYS, TOKENS
+
+    return API_KEY, DAYS, TOKENS
 
 
-def query_subgraph_day_data(Token):
+def query_subgraph_day_data(Token, URL):
     '''
     This function queries a Uniswap Subgraph.  The original Curl construct and expected response struct
     can be found in the read-me file
@@ -34,7 +36,7 @@ def query_subgraph_day_data(Token):
                  "variables": {} 
                 }
 
-    response = requests.post(URI, json=json_data)  
+    response = requests.post(URL, json=json_data)  
     
     # Check if the request was successful
     # ToDo: There is a small bug in this error checking logic,
@@ -47,7 +49,7 @@ def query_subgraph_day_data(Token):
         return None
 
 
-def query_subgraph_timeseries(Token, Days):
+def query_subgraph_timeseries(Days, Token, URL):
     '''
     This function queries a Uniswap Subgraph.  The original Curl construct and expected response struct
     can be found in the read-me file
@@ -61,7 +63,7 @@ def query_subgraph_timeseries(Token, Days):
                  "variables": {} 
                 } 
 
-    response = requests.post(URI, json=json_data)  
+    response = requests.post(URL, json=json_data)  
     
     # Check if the request was successful
     # ToDo: There is a small bug in this error checkin logic,
@@ -84,13 +86,14 @@ def main():
 
     DAYS, TOKENS = get_config_values()
     TOKENS = TOKENS.split()
+    URL = URI1 + API_KEY + URI2
 
     for Token in TOKENS:
-        result = query_subgraph_day_data(Token)
+        result = query_subgraph_day_data(Token, URL)
         if result:
             print(json.dumps(result, indent=4))
 
-        result = query_subgraph_timeseries(Token, DAYS)
+        result = query_subgraph_timeseries(DAYS, Token, URL)
         if result:
             print(json.dumps(result, indent=4))
 
