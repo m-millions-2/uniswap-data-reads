@@ -77,6 +77,9 @@ def query_subgraph_timeseries(Days, Token, URL):
 
 
 def run_day_data_query():
+    '''
+    This function
+    '''
     API_KEY, DAYS, TOKENS = get_config_values()
     TOKENS = TOKENS.split()
     print(API_KEY, DAYS, TOKENS)
@@ -90,6 +93,9 @@ def run_day_data_query():
 
 
 def run_timeseries_query():
+    '''
+    This function
+    '''
     API_KEY, DAYS, TOKENS = get_config_values()
     TOKENS = TOKENS.split()
     print(API_KEY, DAYS, TOKENS)
