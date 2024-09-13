@@ -2,6 +2,8 @@ import configparser
 import json
 import requests
 
+import config_values
+
 
 URI1 = 'https://gateway.thegraph.com/api/'
 URI2 = '/subgraphs/id/5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV'
