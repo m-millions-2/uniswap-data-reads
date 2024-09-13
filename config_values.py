@@ -6,7 +6,7 @@ class GCV:
         config = configparser.ConfigParser()
         config.sections()
 
-        config.read('config_test.ini')
+        config.read('config.ini')
  
         API_KEY = config['Secret']['API_KEY'] 
         DAYS = config['Time Series Length']['DAYS']
