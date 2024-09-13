@@ -41,13 +41,15 @@ def query_subgraph_timeseries(Days, Token, URL):
     can be found in the read-me file
     '''
     json_data = { 
-                 "query": "{ tokenDayDatas(first: " + Days + ", where: {token: \"" + Token + "\"}, orderBy: date,\
+                 "query": "{ tokenDayDatas(first: " + Days + ", where: {token: \"" + Token + "\"},\
+                                                                                                   orderBy: date,\
                                                                                                    orderDirection: asc )\
-                                                                                                   { date volumeUSD token { id symbol\
+                                                                                                   { date volumeUSD token \
+                                                                                                   { id symbol\
                                                                                                    } } }",                                           
                  "operationName": "Subgraphs", 
                  "variables": {} 
-                } 
+                }  
 
     response = requests.post(URL, json=json_data)  
     
