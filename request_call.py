@@ -76,27 +76,50 @@ def query_subgraph_timeseries(Days, Token, URL):
         return None
 
 
-def main():
-    '''
-    This is the point of ingress for the application and launches two distinct 
-    Subgraph search queries, each returning a JSON payload
-  
-    ToDo: Update calls for asychronous processing and DAYS variable pass-through
-    '''
-
-    DAYS, TOKENS = get_config_values()
+def run_day_data_query():
+    API_KEY, DAYS, TOKENS = get_config_values()
     TOKENS = TOKENS.split()
+    print(API_KEY, DAYS, TOKENS)
     URL = URI1 + API_KEY + URI2
+    print(URL)
 
-    for Token in TOKENS:
+    for Token in TOKENS: 
         result = query_subgraph_day_data(Token, URL)
         if result:
             print(json.dumps(result, indent=4))
 
+
+def run_timeseries_query():
+    API_KEY, DAYS, TOKENS = get_config_values()
+    TOKENS = TOKENS.split()
+    print(API_KEY, DAYS, TOKENS)
+    URL = URI1 + API_KEY + URI2
+    print(URL)
+
+    for Token in TOKENS:
+        print(Token)
         result = query_subgraph_timeseries(DAYS, Token, URL)
         if result:
             print(json.dumps(result, indent=4))
 
 
+def main():
+    '''
+    This is the point of ingress for the application and launches two distinct 
+    Subgraph search queries, each returning a JSON payload. Arbritary run-times 
+    are used in this example...
+    '''
+    #Run job every day at the 11:33am - Time Zone not specefied
+    schedule.every().day.at("11:33").do(run_timeseries_query)
+    
+    #Run job every day at the 11:00pm - Time Zone not specefied
+    schedule.every().day.at("23:00").do(run_day_data_query)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+
 if __name__ == "__main__":
-    main()
+  main()
+
