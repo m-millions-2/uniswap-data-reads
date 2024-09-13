@@ -66,7 +66,11 @@ def query_subgraph_timeseries(Days, Token, URL):
 
 def run_day_data_query():
     '''
-    This function
+    This function fetches daily data from a Subgraph - fetching the configuration values
+    here seems like a repetative task, but it is architected as an individual call based on 
+    scheduler and other system considerations and with the assumptions that on call time, the 
+    configurations values could have changed - so though it looks like an over-sight, it's 
+    actually structured this way by design
     '''
     config_values = config_test.GCV()
     API_KEY, DAYS, TOKENS = config_values.read_config_file()
@@ -81,7 +85,11 @@ def run_day_data_query():
 
 def run_timeseries_query():
     '''
-    This function
+    This function fetches timeseries data from a Subgraph - fetching the configuration values
+    here seems like a repetative task, but it is architected as an individual call based on 
+    scheduler and other system considerations and with the assumptions that on call time, the 
+    configurations values could have changed - so though it looks like an over-sight, it's 
+    actually structured this way by design
     '''
     config_values = config_test.GCV()
     API_KEY, DAYS, TOKENS = config_values.read_config_file()
