@@ -72,7 +72,7 @@ def run_day_data_query():
     configurations values could have changed - so though it looks like an over-sight, it's 
     actually structured this way by design
     '''
-    config_values = config_test.GCV()
+    config_values = config_values.GCV()
     API_KEY, DAYS, TOKENS = config_values.read_config_file()
     TOKENS = TOKENS.split()
     URL = URI1 + API_KEY + URI2
